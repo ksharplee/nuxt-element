@@ -1,0 +1,21 @@
+@import "./scss/functions";
+@import "./scss/variables";
+@import "./scss/mixins";
+@import "./scss/utilities";
+
+body {
+  background-color: #e9ecf3;
+}
+
+.page-title {
+  margin-top: -20px;
+  margin-right: -20px;
+  margin-left: -20px;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  background-color: #fafafa;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+}
