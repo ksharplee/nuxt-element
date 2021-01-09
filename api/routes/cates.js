@@ -1,85 +1,12 @@
-const moment = require('moment')
-const { Op, literal } = require('sequelize')
+// const { Op, literal } = require('sequelize')
 const { models } = require('../../database')
 const { getIdParam, genPassword, verifyParams } = require('../helpers')
 
 const getAll = async (req, res) => {
-  const params = req.query
-  if (+params.p === 1) {
-    params.timeStamp = moment().format('YYYY-MM-DD HH:mm:ss')
-  }
-  const msg = verifyParams(params, [
-    {
-      key: 'p',
-      rule: 'required',
-      alias: 'p'
-    },
-    {
-      key: 'pageSize',
-      rule: 'required',
-      alias: 'pageSize'
-    },
-    {
-      key: 'timeStamp',
-      rule: +params.p > 1 ? 'required' : 'ignored',
-      alias: 'timeStamp'
-    }
-  ])
-  if (msg) {
-    throw new Error(msg)
-  }
-  const where = {
-    createdAt: {
-      [Op.lte]: moment(params.timeStamp)
-    },
-    id: {
-      // 添加管理员身份的id数组的子查询,另一种方法是通过models先查询出对应的id数组
-      [Op.notIn]: literal(
-        `(SELECT DISTINCT u.id FROM user_login AS u
-            JOIN mtm_user_role AS j ON u.id = j.userId
-            JOIN user_role as r ON j.roleId = r.id
-            WHERE j.roleId = 2)`
-      )
-    }
-  }
-  if (params.name) {
-    where.userName = {
-      [Op.substring]: params.name
-    }
-  }
-  if (params.status) {
-    where.status = {
-      [Op.eq]: +params.status
-    }
-  }
-  if (params.role) {
-    where.id[Op.in] = literal(
-      `(SELECT DISTINCT u.id FROM user_login AS u
-            JOIN mtm_user_role AS j ON u.id = j.userId
-            JOIN user_role as r ON j.roleId = r.id
-            WHERE j.roleId = ${+params.role})`
-    )
-  }
-  const users = await models.userLogin.findAndCountAll({
-    limit: +params.pageSize,
-    offset: +params.pageSize * (+params.p - 1),
-    attributes: ['userName', 'createdAt', 'id', 'status'],
-    where,
-    // count不计数重复主键
-    distinct: true,
-    include: [{
-      model: models.userRole,
-      attributes: ['id', 'name'],
-      // 去掉多对多连接表的查询数据,只留下目标表的内容
-      through: { attributes: [] }
-    }]
-  })
+  const cates = await models.baseCate.findAll()
   res.status(200).json({
     status: 1,
-    data: users.rows,
-    total: users.count,
-    p: +params.p,
-    timeStamp: +params.p === 1 ? moment().format('YYYY-MM-DD HH:mm:ss') : params.timeStamp
+    data: cates
   })
 }
 

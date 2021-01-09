@@ -70,7 +70,7 @@ export default {
         password: '',
         checkPass: '',
         userName: '',
-        roles: ['3']
+        userRoles: ['3']
       },
       rules: {
         password: [
@@ -94,9 +94,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.submitting = true
-          this.$store.dispatch('register', {
-            data: this.user
-          }).then(() => {
+          this.$store.dispatch('register', this.user).then(() => {
             this.$router.push('/')
           }).finally(() => {
             this.submitting = false

@@ -7,19 +7,18 @@ const helmet = require('helmet')
 
 const { makeHandlerAwareOfAsyncErrors } = require('./helpers')
 
+// Require Universal middlewares
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
 app.use(helmet())
 
 // import login router
-app.use(require('./auth/login'))
+const loginRouter = require('./auth/login')
 app.use(require('./auth/register'))
+app.use(loginRouter.router)
 
-// Require Universal middlewares
 // Require Authentication middleware
 const auth = require('./auth/auth')
-
-// Import Universal middlewares
 
 // Import Authentication middleware
 app.use(auth)
@@ -36,6 +35,7 @@ routes.forEach((route) => {
 
 const restAPIs = {
   users: require('./routes/users'),
+  cates: require('./routes/cates'),
   roles: require('./routes/roles')
 }
 

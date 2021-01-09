@@ -51,7 +51,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$R())
+    // console.log(this.$R())
   }
 }
 </script>

@@ -42,10 +42,9 @@
       </el-row>
     </el-header>
     <el-container>
-      <!-- <el-aside style="background-color:#2c3e50;box-shadow:2px 0 10px rgba(0,0,0,.1)" width="200px" class="text-white"> -->
-      <el-aside style="" width="250px" class="pl-4 pt-4">
+      <el-aside width="250px" class="pl-4 pt-4">
         <div class="h-100 bg-white">
-          <el-menu ref="menu" :default-active="defaultIndex" router unique-opened>
+          <el-menu ref="menu" :default-active="defaultIndex" router unique-opened active-text-color="#fff">
             <template v-for="(menu, i) in menus">
               <el-submenu v-if="menu.submenu" :key="i" :index="menu.index">
                 <template slot="title">
@@ -100,9 +99,9 @@ export default {
           icon: 'el-icon-menu'
         },
         {
-          title: '系统',
-          index: 'system',
-          icon: 'el-icon-s-tools',
+          title: '客户',
+          index: 'user',
+          icon: 'el-icon-s-custom',
           submenu: [
             {
               index: '/users',
@@ -111,9 +110,20 @@ export default {
           ]
         },
         {
-          title: '客户',
-          index: 'user',
+          title: '商品',
+          index: 'goods',
           icon: 'el-icon-s-custom',
+          submenu: [
+            {
+              index: '/cates',
+              title: '商品分类'
+            }
+          ]
+        },
+        {
+          title: '系统',
+          index: 'system',
+          icon: 'el-icon-s-tools',
           submenu: [
             {
               index: '/users',
@@ -138,51 +148,7 @@ export default {
 </script>
 
 <style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.el-menu-item.is-active {
+  background-color: #409EFF;
 }
 </style>
