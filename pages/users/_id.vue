@@ -1,54 +1,50 @@
 <template>
-  <div>
-    <h4 class="page-title">
-      {{ id === '0' ? '新增客户' : '编辑客户' }}
-    </h4>
-    <el-form
-      ref="user"
-      :model="user"
-      :rules="rules"
-      status-icon
-      label-width="100px"
-      style="width:400px"
-    >
-      <el-form-item label="用户名" prop="userName">
-        <el-input v-model="user.userName" placeholder="请输入用户名" />
-      </el-form-item>
-      <el-form-item v-if="id === '0'" label="密码" prop="password">
-        <el-input v-model="user.password" type="password" placeholder="请输入密码" />
-      </el-form-item>
-      <el-form-item v-if="id === '0'" label="确认密码" prop="checkPass">
-        <el-input v-model="user.checkPass" type="password" placeholder="请再次输入密码" />
-      </el-form-item>
-      <el-form-item label="角色" prop="userRoles">
-        <el-checkbox-group v-model="user.userRoles" size="medium">
-          <el-checkbox-button :label="3">
-            采购商
-          </el-checkbox-button>
-          <el-checkbox-button :label="1">
-            供应商
-          </el-checkbox-button>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="问题" prop="question">
-        <el-input v-model="user.question" placeholder="请输入找回密码提示问题" />
-      </el-form-item>
-      <el-form-item label="答案" prop="answer">
-        <el-input v-model="user.answer" placeholder="请输入找回密码答案" />
-      </el-form-item>
-      <el-form-item label="启用">
-        <el-switch v-model="user.status" :active-value="1" :inactive-value="0" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" size="medium" :loading="submitting" @click="submitForm('user')">
-          确定
-        </el-button>
-        <el-button size="medium" @click="$refs['user'].resetFields()">
-          重置
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+  <el-form
+    ref="user"
+    :model="user"
+    :rules="rules"
+    status-icon
+    label-width="100px"
+    class="pt-3"
+    style="width:400px"
+  >
+    <el-form-item label="用户名" prop="userName">
+      <el-input v-model="user.userName" placeholder="请输入用户名" />
+    </el-form-item>
+    <el-form-item v-if="id === '0'" label="密码" prop="password">
+      <el-input v-model="user.password" type="password" placeholder="请输入密码" />
+    </el-form-item>
+    <el-form-item v-if="id === '0'" label="确认密码" prop="checkPass">
+      <el-input v-model="user.checkPass" type="password" placeholder="请再次输入密码" />
+    </el-form-item>
+    <el-form-item label="角色" prop="userRoles">
+      <el-checkbox-group v-model="user.userRoles" size="medium">
+        <el-checkbox-button :label="3">
+          采购商
+        </el-checkbox-button>
+        <el-checkbox-button :label="1">
+          供应商
+        </el-checkbox-button>
+      </el-checkbox-group>
+    </el-form-item>
+    <el-form-item label="问题" prop="question">
+      <el-input v-model="user.question" placeholder="请输入找回密码提示问题" />
+    </el-form-item>
+    <el-form-item label="答案" prop="answer">
+      <el-input v-model="user.answer" placeholder="请输入找回密码答案" />
+    </el-form-item>
+    <el-form-item label="启用">
+      <el-switch v-model="user.status" :active-value="1" :inactive-value="0" />
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" size="medium" :loading="submitting" @click="submitForm('user')">
+        确定
+      </el-button>
+      <el-button size="medium" @click="$refs['user'].resetFields()">
+        重置
+      </el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>

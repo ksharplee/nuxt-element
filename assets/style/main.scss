@@ -1,0 +1,106 @@
+// @import "./element-variables.scss";
+@import "./scss/functions";
+@import "./scss/variables";
+@import "./scss/mixins";
+@import "./scss/utilities";
+@import "./scss/type";
+@import "./scss/reboot";
+@import "./scss/root";
+
+// element-ui overridden
+.el-dropdown-link {
+  cursor: pointer;
+}
+
+.el-table {
+  font-size: $font-size-base;
+}
+
+.el-table th {
+  color: #333;
+  font-weight: normal;
+  background-color: #ecf0f5;
+}
+
+.el-menu-item * {
+  vertical-align: initial;
+}
+
+.el-submenu .el-menu-item {
+  min-width: initial;
+}
+
+
+// custom
+.left-menu {
+  a {
+    text-decoration: none;
+  }
+
+  .left-menu-first {
+    position: relative;
+
+    &.active,
+    &:hover {
+      a.left-menu-index {
+        color: #fff;
+        background-color: $primary;
+      }
+    }
+
+    a.left-menu-index {
+      display: block;
+      height: 44px;
+      line-height: 44px;
+      padding: 0 28px;
+      color: $info;
+      font-size: $h5-font-size;
+      transition: $transition-base;
+
+      i {
+        font-size: $h2-font-size;
+        width: $h2-font-size;
+        margin-right: $spacer;
+        vertical-align: middle;
+      }
+
+    }
+
+    &:hover {
+      .left-menu-second {
+        display: flex;
+      }
+    }
+
+    .left-menu-second {
+      position: absolute;
+      z-index: 1;
+      display: none;
+      top: 0;
+      left: 100%;
+      white-space: nowrap;
+      padding: 28px;
+      background-color: #fff;
+      box-shadow: $box-shadow-sm;
+
+      a {
+        color: $info;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+
+      .left-menu-second-title {
+        margin-bottom: $spacer;
+        color: $secondary;
+      }
+
+      .left-menu-second-menu {
+        margin-bottom: $spacer;
+      }
+    }
+  }
+
+
+}
