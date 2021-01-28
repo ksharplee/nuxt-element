@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
         type: DataTypes.TINYINT,
         allowNull: false,
         defaultValue: 1,
-        comment: '是否启用,默认为是'
+        comment: '是否启用,1为是,0为否'
       },
       level: {
         type: DataTypes.TINYINT,
@@ -45,12 +45,12 @@ module.exports = (sequelize) => {
         type: DataTypes.TINYINT,
         allowNull: false,
         defaultValue: 1,
-        comment: '分类是否为叶子节点(即最后一级),默认为是'
+        comment: '分类是否为叶子节点(即最后一级),1为是,0为否'
       },
       inGroupTitle: {
         type: DataTypes.TINYINT,
         defaultValue: 0,
-        comment: '是否作为分类分组标题显示,默认为否'
+        comment: '是否作为分类分组标题显示,1为是,0为否'
       },
       sort: {
         type: DataTypes.INTEGER,

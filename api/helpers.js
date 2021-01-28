@@ -10,7 +10,7 @@ const getIdParam = (req) => {
   if (/^\d+$/.test(id)) {
     return Number.parseInt(id, 10)
   }
-  throw new TypeError(`Invalid ':id' param: "${id}"`)
+  throw new TypeError(`无效的id,参数: "${id}"`)
 }
 
 const genPassword = (password) => {

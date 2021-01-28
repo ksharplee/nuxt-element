@@ -48,8 +48,8 @@
         </el-button>
       </div>
     </div>
-    <el-table :data="tableData.data" stripe border class="w-100">
-      <el-table-column prop="id" label="ID" min-width="180" />
+    <el-table :data="tableData.data" stripe class="w-100">
+      <el-table-column prop="id" label="ID" min-width="80" />
       <el-table-column prop="userName" label="用户名" min-width="180" />
       <el-table-column prop="userRoles" label="角色" min-width="180">
         <template slot-scope="scope">
@@ -62,23 +62,21 @@
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="注册时间" min-width="220" />
-      <el-table-column align="right" label="操作" min-width="220">
+      <el-table-column align="right" label="" min-width="80">
         <template slot-scope="scope">
-          <el-button
-            :disabled="disableBtn(scope.row)"
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            :disabled="disableBtn(scope.row)"
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-          >
-            删除
-          </el-button>
+          <el-dropdown @command="handleAction">
+            <span class="el-dropdown-link">
+              <i class="el-icon-more" />
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :disabled="disableBtn(scope.row)" :command="{id: scope.row.id, type: '1'}">
+                <i class="el-icon-edit-outline" />编辑
+              </el-dropdown-item>
+              <el-dropdown-item :disabled="disableBtn(scope.row)" :command="{id: scope.row.id, type: '2'}">
+                <i class="el-icon-delete" />删除
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -159,20 +157,18 @@ export default {
     ])
   },
   methods: {
-    handleEdit (index, row) {
-      this.$router.push(`/users/${row.id}`)
-    },
-    handleDelete (index, row) {
-      this.$confirm('确定删除用户吗?')
-        .then(() => {
-          this.$store.dispatch('users/removeUser', row.id).then(() => {
-            this.$message.success('删除成功')
-            this.$fetch()
-          })
-        })
-        .catch((err) => {
-          this.$message.error(err.message)
-        })
+    handleAction ({ id, type }) {
+      if (type === '1') {
+        this.$router.push(`/users/${id}`)
+      } else {
+        this.$confirm('确定删除用户吗?')
+          .then(() => {
+            this.$store.dispatch('users/removeUser', id).then(() => {
+              this.$message.success('删除成功')
+              this.$fetch()
+            })
+          }).catch(() => {})
+      }
     },
     disableBtn (item) {
       return !!item.userRoles.find(item => item.id === 2)

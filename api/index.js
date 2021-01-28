@@ -36,7 +36,9 @@ routes.forEach((route) => {
 const restAPIs = {
   users: require('./routes/users'),
   cates: require('./routes/cates'),
-  roles: require('./routes/roles')
+  roles: require('./routes/roles'),
+  attrs: require('./routes/attrs'),
+  groups: require('./routes/groups')
 }
 
 // We define the standard REST APIs for each route (if they exist).

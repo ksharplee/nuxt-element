@@ -70,32 +70,43 @@ module.exports = (sequelize) => {
     otherKey: 'cateId',
     through: Models.mtmCateBrand
   })
+  // 商品分类递归查询
+  Models.baseCate.hasMany(Models.baseCate, {
+    as: 'children',
+    foreignKey: 'parentId'
+  })
   // 商品分类分组与商品分类一对多
   Models.baseCateGroup.hasMany(Models.baseCate, {
     foreignKey: 'groupId',
-    onDelete: 'RESTRICT'
+    onDelete: 'RESTRICT',
+    as: 'cates'
   })
   Models.baseCate.belongsTo(Models.baseCateGroup, {
     foreignKey: 'groupId',
-    onDelete: 'RESTRICT'
+    onDelete: 'RESTRICT',
+    as: 'cates'
   })
   // 商品分类与平台属性一对多
   Models.baseCate.hasMany(Models.baseCateAttr, {
     foreignKey: 'cateId',
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    as: 'attrs'
   })
   Models.baseCateAttr.belongsTo(Models.baseCate, {
     foreignKey: 'cateId',
-    onDelete: 'RESTRICT'
+    onDelete: 'RESTRICT',
+    as: 'attrs'
   })
   // 平台属性与平台属性值一对多
   Models.baseCateAttr.hasMany(Models.baseCateAttrOption, {
     foreignKey: 'attrId',
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    as: 'options'
   })
   Models.baseCateAttrOption.belongsTo(Models.baseCateAttr, {
     foreignKey: 'attrId',
-    onDelete: 'RESTRICT'
+    onDelete: 'RESTRICT',
+    as: 'options'
   })
   // 商品分类与商品SPU一对多
   Models.baseCate.hasMany(Models.goodsSpu, {

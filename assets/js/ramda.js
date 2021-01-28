@@ -71,6 +71,7 @@ import update from 'ramda/src/update'
 import xprod from 'ramda/src/xprod'
 import without from 'ramda/src/without'
 import reverse from 'ramda/src/reverse'
+import unnest from 'ramda/src/unnest'
 
 // String
 import match from 'ramda/src/match'
@@ -189,6 +190,7 @@ export default {
   slice,
   sort,
   reverse,
+  unnest,
   tail,
   take,
   uniq,

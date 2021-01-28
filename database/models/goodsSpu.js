@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const moment = require('moment');
+const { DataTypes } = require('sequelize')
+const moment = require('moment')
 
 // 商品SPU表
 module.exports = (sequelize) => {
@@ -9,41 +9,41 @@ module.exports = (sequelize) => {
       cateId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        comment: '商品类别Id',
+        comment: '商品类别Id'
       },
       name: {
         type: DataTypes.STRING(200),
-        allowNull: false,
+        allowNull: false
       },
       descDetail: {
         type: DataTypes.STRING,
-        comment: '商品详情',
+        comment: '商品详情'
       },
       sales: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER
       },
       comments: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER
       },
       createdAt: {
         type: DataTypes.DATE,
-        get() {
+        get () {
           return moment(this.getDataValue('createdAt')).format(
             'YYYY-MM-DD HH:mm:ss'
-          );
-        },
+          )
+        }
       },
       updatedAt: {
         type: DataTypes.DATE,
-        get() {
+        get () {
           return moment(this.getDataValue('updatedAt')).format(
             'YYYY-MM-DD HH:mm:ss'
-          );
-        },
-      },
+          )
+        }
+      }
     },
     {
-      tableName: 'goods_spu',
+      tableName: 'goods_spu'
     }
-  );
-};
+  )
+}
