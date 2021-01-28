@@ -1,0 +1,33 @@
+
+/* 改变主题色变量 */
+// $--color-primary: teal;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+$--font-size-base: 13px;
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+.el-dropdown-link {
+  cursor: pointer;
+}
+
+.el-table {
+  font-size: 13px;
+}
+
+.el-table th {
+  color: #333;
+  font-weight: normal;
+  background-color: #ecf0f5;
+}
+
+.el-menu-item {
+  min-height: 56px;
+  height: initial;
+}
+
+.el-menu-item * {
+  vertical-align: initial;
+}

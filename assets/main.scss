@@ -1,12 +1,12 @@
+// @import "./element-variables.scss";
+
 @import "./scss/functions";
 @import "./scss/variables";
 @import "./scss/mixins";
 @import "./scss/utilities";
+@import "./scss/type";
 @import "./scss/reboot";
-
-body {
-  background-color: #e9ecf3;
-}
+@import "./scss/root";
 
 .page-title {
   margin-top: -20px;
@@ -14,9 +14,33 @@ body {
   margin-left: -20px;
   margin-bottom: 20px;
   padding: 15px 20px;
-  background-color: #fafafa;
+  background-color: #ecf0f5;
 }
 
+// element-ui overridden
 .el-dropdown-link {
   cursor: pointer;
+}
+
+.el-table {
+  font-size: $font-size-base;
+}
+
+.el-table th {
+  color: #333;
+  font-weight: normal;
+  background-color: #ecf0f5;
+}
+
+.el-menu-item {
+  min-height: 56px;
+  height: initial;
+}
+
+.el-menu-item * {
+  vertical-align: initial;
+}
+
+.el-submenu .el-menu-item {
+  min-width: initial;
 }
