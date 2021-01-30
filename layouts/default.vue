@@ -5,47 +5,51 @@
         <el-col class="h4 font-weight-bold">
           NUXT EXPRESS APP
         </el-col>
-        <el-col class="text-right">
-          <div v-if="$auth.user">
-            Welcome, {{ $auth.user.userName }}!
-            <el-button
-              type="primary"
-              plain
-              round
-              size="small"
-              class="ml-2"
-              @click="$auth.logout()"
-            >
-              退出登录
-            </el-button>
-          </div>
-          <template v-else>
-            <el-button
-              type="primary"
-              plain
-              round
-              size="small"
-              @click="$router.push('/login')"
-            >
-              登录
-            </el-button>
-            <el-button
-              type="info"
-              plain
-              round
-              size="small"
-              class="ml-3"
-              @click="$router.push('/register')"
-            >
-              注册
-            </el-button>
-          </template>
+        <el-col v-if="$auth.user" class="align-self-stretch h-100 text-right">
+          <ul class="list-unstyled header-menu h-100">
+            <li>
+              <span class="el-dropdown-link text-white h-100 d-flex align-items-center  px-3">
+                {{ $auth.user.userName }}
+                <i class="el-icon-user-solid h3 ml-1" />
+              </span>
+              <div class="menu-content text-info">
+                <div
+                  class="menu-link"
+                  @click="$auth.logout()"
+                >
+                  <i class="el-icon-remove mr-1 h5" />
+                  退出登录
+                </div>
+              </div>
+            </li>
+          </ul>
+        </el-col>
+        <el-col v-else class="text-right">
+          <el-button
+            type="primary"
+            plain
+            round
+            size="small"
+            @click="$router.push('/login')"
+          >
+            登录
+          </el-button>
+          <el-button
+            type="info"
+            plain
+            round
+            size="small"
+            class="ml-3"
+            @click="$router.push('/register')"
+          >
+            注册
+          </el-button>
         </el-col>
       </el-row>
     </el-header>
     <el-container>
       <el-aside width="200px" class="pl-4 pt-4" style="overflow:initial">
-        <div class="h-100 bg-white">
+        <div class="h-100 bg-white d-flex flex-column">
           <div class="left-menu pt-2">
             <div
               v-for="(menu, i) in menus"
@@ -79,49 +83,14 @@
               </div>
             </div>
           </div>
-          <!-- <el-menu ref="menu" :default-active="defaultIndex" router unique-opened active-text-color="#fff">
-            <template v-for="(menu, i) in menus">
-              <el-submenu v-if="menu.submenu" :key="i" :index="menu.index">
-                <template slot="title">
-                  <i :class="menu.icon" class="h3 mr-1" />
-                  <span>{{ menu.title }}</span>
-                </template>
-                <el-menu-item
-                  v-for="submenu in menu.submenu"
-                  :key="submenu.index"
-                  :index="submenu.index"
-                  :class="defaultIndex === menu.index ? 'bg-primary text-white' : ''"
-                >
-                  {{ submenu.title }}
-                </el-menu-item>
-              </el-submenu>
-              <el-menu-item v-else :key="i" :index="menu.index" :class="defaultIndex === menu.index ? 'bg-primary text-white' : ''">
-                <i :class="menu.icon" class="h3 mr-1" />
-                <span slot="title">{{ menu.title }}</span>
-              </el-menu-item>
-            </template>
-          </el-menu> -->
-        </div>
-      </el-aside>
-      <el-main class="pb-0">
-        <div class="d-flex flex-column h-100">
-          <el-breadcrumb separator="/" class="mb-3">
-            <el-breadcrumb-item :to="{ path: '/' }">
-              首页
-            </el-breadcrumb-item>
-            <el-breadcrumb-item
-              v-for="(item, i) in $store.state.breadcrumbs"
-              :key="i"
-              :to="item.router"
-            >
-              {{ item.text }}
-            </el-breadcrumb-item>
-          </el-breadcrumb>
-          <div class="p-4 bg-white" style="flex: 1">
-            <nuxt />
+          <div class="mt-auto text-center py-3 text-primary">
+            <nuxt-link to="/">
+              NUXT EXPRESS APP
+            </nuxt-link>
           </div>
         </div>
-      </el-main>
+      </el-aside>
+      <nuxt />
     </el-container>
   </el-container>
 </template>
@@ -193,11 +162,15 @@ export default {
   computed: {
     defaultIndex () {
       const R = this.$R()
-      // return R.findIndex(R.propEq('index', this.$route.path), this.menus)
       return R.findIndex(menu => this.$route.name.includes(menu.name), this.menus)
     },
     route () {
       return this.$route
+    }
+  },
+  watch: {
+    '$route' () {
+      this.menuIndex = this.defaultIndex
     }
   },
   created () {

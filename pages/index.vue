@@ -1,30 +1,36 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        nuxt-element
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <el-container>
+    <el-main class="pb-0">
+      <div class="container bg-white h-100">
+        <div class="d-flex flex-column ">
+          <div>
+            <Logo />
+            <h1 class="title">
+              nuxt-element
+            </h1>
+            <div class="links">
+              <a
+                href="https://nuxtjs.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button--green"
+              >
+                Documentation
+              </a>
+              <a
+                href="https://github.com/nuxt/nuxt.js"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button--grey"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -49,6 +55,14 @@ export default {
     return {
       test: ''
     }
+  },
+  created () {
+    this.$store.commit('SET_BREADCRUMBS', [
+      {
+        text: '工作台',
+        router: null
+      }
+    ])
   },
   mounted () {
     // console.log(this.$R())

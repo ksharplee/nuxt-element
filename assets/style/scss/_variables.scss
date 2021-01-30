@@ -38,7 +38,7 @@ $blue: #03b8cc !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #e83e8c !default;
-$red: #f56c6c !default;
+$red: #f33538 !default;
 $orange: #e6a23c !default;
 $yellow: #ffc107 !default;
 $green: #13c19f !default;
@@ -83,8 +83,8 @@ $theme-colors: map-merge(
     "secondary": $secondary,
     "success": $green,
     "info": $info,
-    "warning": #f33538,
-    "danger": #ca1619,
+    "warning": $warning,
+    "danger": $red,
     "light": #e7e9f1,
     "medium": #9ba19c,
     "dark": #383e39
@@ -172,7 +172,7 @@ $body-color: #415161 !default;
 $link-color: theme-color("primary") !default;
 $link-decoration: none !default;
 $link-hover-color: darken($link-color, 15%) !default;
-$link-hover-decoration: underline !default;
+$link-hover-decoration: none !default;
 // Darken percentage for links with `.text-*` class (e.g. `.text-success`)
 $emphasized-link-hover-darken-percentage: 15% !default;
 
@@ -229,9 +229,9 @@ $line-height-sm: 1.5 !default;
 $border-width: 1px !default;
 $border-color: $gray-300 !default;
 
-$border-radius: 0.25rem !default;
-$border-radius-lg: 0.3rem !default;
-$border-radius-sm: 0.2rem !default;
+$border-radius: 4px !default;
+$border-radius-lg: 5px !default;
+$border-radius-sm: 3px !default;
 
 $rounded-pill: 50rem !default;
 

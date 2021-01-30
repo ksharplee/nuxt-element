@@ -1,87 +1,105 @@
 <template>
-  <div>
-    <el-tree
-      ref="tree"
-      :data="items"
-      :props="{
-        label: 'name'
-      }"
-      node-key="id"
-      default-expand-all
-      :expand-on-click-node="false"
-    >
-      <span
-        slot-scope="{ node, data }"
-        class="d-flex justify-content-between flex-fill py-1"
-      >
-        <span>{{ node.label }}</span>
-        <span>
-          <el-button
-            v-if="data.id !== 0"
-            :disabled="!data.leaf"
-            type="text"
-            size="mini"
-            @click="handleRemove(node, data)"
+  <el-container>
+    <el-main class="pb-0">
+      <div class="d-flex flex-column h-100">
+        <el-breadcrumb separator="/" class="mb-3">
+          <el-breadcrumb-item :to="{ path: '/' }">
+            首页
+          </el-breadcrumb-item>
+          <el-breadcrumb-item>
+            商品分类
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="px-4 py-3 bg-white" style="flex: 1">
+          <div class="pb-3 d-flex align-items-center">
+            <div class="ml-auto">
+              <el-button
+                type="primary"
+                size="medium"
+                @click="dialogAdd = true"
+              >
+                新增根级分类
+              </el-button>
+            </div>
+          </div>
+          <el-table
+            :data="$store.state.cates.list"
+            class="w-100"
+            row-key="id"
+            default-expand-all
+            :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
           >
-            删除
-          </el-button>
-          <el-button
-            v-if="data.id !== 0"
-            type="text"
-            size="mini"
-            @click="dialogEdit = true;cateEdit = data"
+            <el-table-column
+              prop="name"
+              label="分类名称"
+            />
+            <el-table-column align="right" label="" width="80">
+              <template slot-scope="scope">
+                <el-dropdown @command="handleAction">
+                  <span class="el-dropdown-link">
+                    <i class="el-icon-more" />
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item :command="{data: scope.row, type: '1'}">
+                      <i class="el-icon-circle-plus-outline" />添加
+                    </el-dropdown-item>
+                    <el-dropdown-item :command="{data: scope.row, type: '2'}">
+                      <i class="el-icon-edit-outline" />编辑
+                    </el-dropdown-item>
+                    <el-dropdown-item :disabled="!scope.row.leaf" :command="{data: scope.row, type: '3'}">
+                      <i class="el-icon-delete" />删除
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-dialog
+            title="添加分类"
+            :visible.sync="dialogAdd"
+            width="30%"
           >
-            编辑
-          </el-button>
-          <el-button type="text" size="mini" @click="dialogAdd = true;parent = {id: data.id, level:data.level, parentPath: data.id !== 0 ? data.parentPath + data.id + '|' : '0|'}">
-            新增
-          </el-button>
-        </span>
-      </span>
-    </el-tree>
-    <el-dialog
-      title="添加分类"
-      :visible.sync="dialogAdd"
-      width="30%"
-    >
-      <el-form
-        ref="cateAdd"
-        :model="cateAdd"
-        :rules="rules"
-        label-width="100px"
-        @submit.native.prevent
-      >
-        <el-form-item label="分类名称" prop="name">
-          <el-input v-model="cateAdd.name" autofocus />
-        </el-form-item>
-      </el-form>
-      <span slot="footer">
-        <el-button size="small" @click="dialogAdd = false">取 消</el-button>
-        <el-button size="small" type="primary" :loading="loading" @click="handleAppend">确 定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="编辑分类"
-      :visible.sync="dialogEdit"
-      width="30%"
-      @submit.native.prevent
-    >
-      <el-form
-        ref="cateEdit"
-        :model="cateEdit"
-        :rules="rules"
-        label-width="100px"
-      >
-        <el-form-item label="分类名称" prop="name">
-          <el-input v-model="cateEdit.name" autofocus />
-        </el-form-item>
-      </el-form>
-      <span slot="footer">
-        <el-button size="small" @click="dialogEdit = false">取 消</el-button>
-        <el-button size="small" type="primary" :loading="loading" @click="handleEdit">确 定</el-button>
-      </span>
-    </el-dialog>
-  </div>
+            <el-form
+              ref="cateAdd"
+              :model="cateAdd"
+              :rules="rules"
+              label-width="100px"
+              @submit.native.prevent
+            >
+              <el-form-item label="分类名称" prop="name">
+                <el-input v-model="cateAdd.name" autofocus />
+              </el-form-item>
+            </el-form>
+            <span slot="footer">
+              <el-button size="small" @click="dialogAdd = false">取 消</el-button>
+              <el-button size="small" type="primary" :loading="loading" @click="handleAppend">确 定</el-button>
+            </span>
+          </el-dialog>
+          <el-dialog
+            title="编辑分类"
+            :visible.sync="dialogEdit"
+            width="30%"
+            @submit.native.prevent
+          >
+            <el-form
+              ref="cateEdit"
+              :model="cateEdit"
+              :rules="rules"
+              label-width="100px"
+            >
+              <el-form-item label="分类名称" prop="name">
+                <el-input v-model="cateEdit.name" autofocus />
+              </el-form-item>
+            </el-form>
+            <span slot="footer">
+              <el-button size="small" @click="dialogEdit = false">取 消</el-button>
+              <el-button size="small" type="primary" :loading="loading" @click="handleEdit">确 定</el-button>
+            </span>
+          </el-dialog>
+        </div>
+      </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -121,15 +139,20 @@ export default {
       ]
     }
   },
-  created () {
-    this.$store.commit('SET_BREADCRUMBS', [
-      {
-        text: '商品分类',
-        router: null
-      }
-    ])
-  },
   methods: {
+    handleAction ({ data, type }) {
+      switch (type) {
+        case '1':
+          this.dialogAdd = true; this.parent = { id: data.id, level: data.level, parentPath: data.id !== 0 ? data.parentPath + data.id + '|' : '0|' }
+          break
+        case '2':
+          this.dialogEdit = true; this.cateEdit = data
+          break
+        default:
+          this.handleRemove(data)
+          break
+      }
+    },
     handleAppend () {
       this.$refs.cateAdd.validate((valid) => {
         if (valid) {
@@ -158,7 +181,8 @@ export default {
         }
       })
     },
-    handleRemove (node, data) {
+    handleRemove (data) {
+      console.log('函数 ~ file: index.vue ~ line 222 ~ handleRemove ~ data', data)
       this.$confirm('确定删除分类吗?')
         .then(() => {
           this.$store.dispatch('cates/removeCate', data.id).then(() => {

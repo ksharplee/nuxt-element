@@ -26,23 +26,15 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   const params = req.body
   if (req.body.id) {
-    throw new Error('分类已存在')
+    throw new Error('平台属性已存在')
   } else {
-    const cate = await models.baseCateAttr.create({
+    const attr = await models.baseCateAttr.create({
       name: params.name,
-      parentPath: params.parentPath,
-      parentId: params.parentId,
-      level: params.level
+      description: params.description
     })
-    if (params.parentId !== 0) {
-      const parent = await models.baseCateAttr.findByPk(params.parentId)
-      parent.update({
-        leaf: 0
-      })
-    }
     res.status(201).json({
       status: 1,
-      data: cate
+      data: attr
     })
   }
 }

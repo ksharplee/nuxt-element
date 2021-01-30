@@ -20,6 +20,11 @@ const getNeedsTree = async (id) => {
           attributes: ['id', 'option']
         }
       }
+      // {
+      //   model: models.baseCateGroup,
+      //   as: 'group',
+      //   attributes: ['id', 'name']
+      // }
     ]
   })
   rootNeeds = await getChildNeeds(rootNeeds)
@@ -177,15 +182,17 @@ const remove = async (req, res) => {
   const cate = await models.baseCate.findByPk(id)
   const parent = await models.baseCate.findByPk(cate.parentId)
   await cate.destroy()
-  const hasChild = await models.baseCate.findOne({
-    where: {
-      parentId: parent.id
-    }
-  })
-  if (!hasChild) {
-    await parent.update({
-      leaf: 1
+  if (parent) {
+    const hasChild = await models.baseCate.findOne({
+      where: {
+        parentId: parent.id
+      }
     })
+    if (!hasChild) {
+      await parent.update({
+        leaf: 1
+      })
+    }
   }
   res.status(200).end()
 }

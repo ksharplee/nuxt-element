@@ -1,5 +1,4 @@
 export const state = () => ({
-  breadcrumbs: [],
   roles: {
     status: 0,
     data: []
@@ -7,9 +6,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  'SET_BREADCRUMBS' (state, payload) {
-    state.breadcrumbs = payload
-  },
   'SET_ROLES' (state, payload) {
     state.roles = payload
   }

@@ -15,6 +15,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(20),
         allowNull: false
       },
+      description: {
+        type: DataTypes.STRING
+      },
       isUsing: {
         type: DataTypes.TINYINT,
         allowNull: false,

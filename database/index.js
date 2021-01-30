@@ -47,6 +47,7 @@ const modelDefiners = [
   // 多对多连接表
   require('./models/mtmUserRole'),
   require('./models/mtmCateBrand'),
+  require('./models/mtmCateAttr'),
   require('./models/mtmSkuSpec')
 ]
 
@@ -54,17 +55,8 @@ modelDefiners.forEach(modelDefiner => modelDefiner(sequelize))
 
 associate(sequelize)
 
-// const inits = [
-//   require('./init/initArea'),
-//   require('./init/initRoles'),
-//   require('./init/initAdministrator')
-// ]
-
-// inits.forEach(init => init(sequelize));
-
 // (async () => {
 //   await sequelize.sync({ alter: true })
-//   // await sequelize.sync({ alter: true });
 // })()
 
 module.exports = sequelize
